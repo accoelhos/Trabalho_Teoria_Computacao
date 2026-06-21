@@ -1,0 +1,45 @@
+@startuml
+title Fluxo geral da MT para reconhecimento de grafos bipartidos
+
+start
+:Ler a entrada da fita;
+:Interpretar n e a lista de arestas;
+
+if (Entrada valida?) then (sim)
+  :Criar área de trabalho na fita;
+  :Inicializar células U para cada vértice;
+
+  while (Ainda existe vertice nao processado?) is (sim)
+    :Selecionar um vértice;
+    if (O vértice está sem cor?) then (sim)
+      :Escrever cor inicial R;
+    endif
+
+    :Posicionar a cabeca na celula do vertice ativo;
+    :Varredura das arestas na fita;
+
+    while (Ainda existem arestas na rodada?) is (sim)
+      if (A aresta incide no vértice ativo?) then (sim)
+        :Mover a cabeca ate a celula do vizinho;
+        if (Vizinho esta sem cor?) then (sim)
+          :Escrever a cor oposta na fita;
+        else (não)
+          if (Vizinho tem a mesma cor?) then (sim)
+            :Rejeitar;
+            stop
+          endif
+        endif
+      endif
+    endwhile (não)
+
+    :Marcar vertice como processado;
+  endwhile (não)
+
+  :Aceitar;
+  stop
+else (não)
+  :Rejeitar;
+  stop
+endif
+
+@enduml

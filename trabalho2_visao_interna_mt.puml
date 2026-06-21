@@ -1,0 +1,40 @@
+@startuml
+title MT - fita e area de trabalho
+
+left to right direction
+skinparam shadowing false
+skinparam roundcorner 10
+skinparam defaultTextAlignment center
+skinparam packageStyle rectangle
+
+rectangle "Controle finito\n\nGuarda o estado:\nq0, qSelectVertex, qScanEdges" as CTRL
+
+rectangle "Cabeca\n\nAnda na fita\numa celula por vez" as HEAD
+
+package "Fita da MT" {
+  rectangle "Entrada\nn#1,2;2,3;3,4" as INPUT
+  rectangle "Separador\n|" as SEP
+  rectangle "Area de trabalho\n1 U   2 R   3 G   4 U" as WORK
+}
+
+CTRL --> HEAD : escolhe a acao
+HEAD --> INPUT : le a entrada
+HEAD --> WORK : le/escreve cores
+
+note bottom of INPUT
+Aqui fica o grafo original.
+end note
+
+note bottom of WORK
+Aqui ficam as marcas da MT.
+U = sem cor
+R/G = colorido
+r/g = processado
+end note
+
+note bottom of CTRL
+O estado nao fica na fita.
+Ele fica no controle finito.
+end note
+
+@enduml
